@@ -1,9 +1,9 @@
 {
   "name": "server",
   "version": "0.0.1",
-  "description": "",
-  "author": "",
-  "private": true,
+  "description": "Example server using quick-social-auth library",
+  "author": "Karel Suedile",
+  "private": false,
   "license": "UNLICENSED",
   "scripts": {
     "build": "nest build",

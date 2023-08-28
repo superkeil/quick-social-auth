@@ -1,9 +1,13 @@
 {
   "name": "quick-social-auth",
   "version": "0.0.1",
-  "description": "",
-  "author": "",
-  "private": true,
+  "description": "Nestjs module for social authentication",
+  "repository": {
+    "url": "https://github.com/superkeil/quick-social-auth.git"
+  },
+  "homepage": "https://github.com/superkeil/quick-social-auth.git",
+  "author": "Karel Suedile",
+  "private": false,
   "license": "Creative Commons",
   "main": "dist/index.js",
   "scripts": {
