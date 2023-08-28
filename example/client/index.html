@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <title>Auth</title>
+    <meta name="description" content="Edition de solutions logicielles">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+
+    <script type="text/javascript">
+        document.addEventListener("DOMContentLoaded", async function() {
+            const providers = ['linkedInClientId', 'googleClientId', 'facebookAppId', 'dbEmail', 'dbPassword'];
+            for (const id of providers) {
+                const clientId = localStorage.getItem(id);
+                if (clientId) {
+                    document.getElementById(id).value = clientId;
+                }
+            }
+        });
+
+        function redirectLinkedIn() {
+            const id = 'linkedInClientId';
+            const clientId = document.getElementById(id).value;
+            localStorage.setItem(id, clientId);
+            const searchParams = new URLSearchParams({
+                response_type: 'code',
+                client_id: clientId,
+                redirect_uri: 'http://localhost:3000/auth/token',
+                scope: 'openid,profile,email'
+            });
+            location.href = 'https://www.linkedin.com/oauth/v2/authorization?' + searchParams.toString();
+        }
+
+        function redirectGoogle() {
+            const id = 'googleClientId';
+            const clientId = document.getElementById(id).value;
+            localStorage.setItem(id, clientId);
+            const searchParams = new URLSearchParams({
+                response_type: 'code',
+                client_id: clientId,
+                redirect_uri: 'http://localhost:3000/auth/token',
+                scope: 'https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email'
+            });
+            location.href = 'https://accounts.google.com/o/oauth2/v2/auth?' + searchParams.toString();
+        }
+
+        function redirectFacebook() {
+            const id = 'facebookAppId';
+            const appId = document.getElementById(id).value;
+            localStorage.setItem(id, appId);
+            const searchParams = new URLSearchParams({
+                client_id: appId,
+                redirect_uri: 'http://localhost:3000/auth/token'
+            });
+            location.href = 'https://www.facebook.com/v17.0/dialog/oauth?' + searchParams.toString();
+        }
+
+        function facebookEmail() {
+            const id = 'facebookAppId';
+            const appId = document.getElementById(id).value;
+            const searchParams = new URLSearchParams({
+                client_id: appId,
+                redirect_uri: 'http://localhost:3000/auth/token',
+                'auth_type': 'rerequest',
+                'scope': 'email'
+            });
+            location.href = 'https://www.facebook.com/v17.0/dialog/oauth?' + searchParams.toString();
+        }
+
+        async function redirectDb() {
+            const dbEmail = document.getElementById('dbEmail').value;
+            localStorage.setItem('dbEmail', dbEmail);
+            const dbPassword = document.getElementById('dbPassword').value;
+            localStorage.setItem('dbPassword', dbPassword);
+            const response = await fetch('http://localhost:3000/user', {
+                method: 'POST',
+                headers: { 'content-type': 'application/json' },
+                body: JSON.stringify({ email: dbEmail, password: dbPassword })
+            });
+            const token = await response.text();
+            location.href = '/dashboard.html?token=' + token;
+        }
+    </script>
+</head>
+<body>
+<div class="container">
+    <h1 class="is-size-1">Auth</h1>
+    <div>
+        <p>LinkedIn ClientId: <input id="linkedInClientId" class="input" value=""></p>
+        <p><button class="button" onclick="redirectLinkedIn()">LinkedIn</button></p>
+    </div>
+    <div>
+        <p>Google ClientId: <input id="googleClientId" class="input" value=""></p>
+        <p><button class="button" onclick="redirectGoogle()">Google</button></p>
+    </div>
+    <div>
+        <p>Facebook AppId: <input id="facebookAppId" class="input" value=""></p>
+        <p>
+            <button class="button" onclick="redirectFacebook()">Facebook</button>
+            <button class="button" onclick="facebookEmail()">Facebook email</button>
+        </p>
+    </div>
+    <div>
+        <p>DB</p>
+        <p><input id="dbEmail" placeholder="email" class="input" value=""></p>
+        <p><input id="dbPassword" placeholder="password" class="input" type="password" value=""></p>
+        <p><button class="button" onclick="redirectDb()">DB</button></p>
+    </div>
+</div>
+</body>
+</html>
