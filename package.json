@@ -12,6 +12,7 @@
   "main": "dist/index.js",
   "scripts": {
     "build": "nest build",
+    "test": "jest",
     "start": "nest start",
     "start:dev": "nest start --watch",
     "start:debug": "nest start --debug --watch",
@@ -44,13 +45,14 @@
       "json",
       "ts"
     ],
-    "rootDir": "lib",
+    "rootDir": ".",
     "testRegex": ".*\\.spec\\.ts$",
     "transform": {
       "^.+\\.(t|j)s$": "ts-jest"
     },
+    "collectCoverage": true,
     "collectCoverageFrom": [
-      "**/*.(t|j)s"
+      "lib/**/*.(t|j)s"
     ],
     "coverageDirectory": "../coverage",
     "testEnvironment": "node"
