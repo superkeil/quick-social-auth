@@ -70,7 +70,7 @@ npm run start:dev
 Go to example/client folder and launch
 `npx http-server`
 
-Then go to (http://localhost:8080/)[http://localhost:8080/]
+Then go to [http://localhost:8080/](http://localhost:8080/)
 
 Please note that for Facebook, in order to get email, you need the ask the permission.
 
