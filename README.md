@@ -9,7 +9,7 @@
 
 This is a nestjs module if you need to authenticate your user with social providers.
 
-This module does not do much. It just retrieve user informations and transform it to a user object so that you can retrieve your users datas.
+This module does not do much. It just retrieves user information and transform it to a user object so that you can retrieve your users datas.
 
 For example, I just need to know the user email in order to populate my own database.
 
