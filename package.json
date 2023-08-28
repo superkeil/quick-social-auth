@@ -1,6 +1,6 @@
 {
   "name": "quick-social-auth",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Nestjs module for social authentication",
   "repository": {
     "url": "https://github.com/superkeil/quick-social-auth.git"
