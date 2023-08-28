@@ -5,6 +5,7 @@
   "repository": {
     "url": "https://github.com/superkeil/quick-social-auth.git"
   },
+  "keywords": ["social", "authentication", "facebook", "linkedin", "google", "login", "nestjs"],
   "homepage": "https://github.com/superkeil/quick-social-auth.git",
   "author": "Karel Suedile",
   "private": false,
