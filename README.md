@@ -15,6 +15,26 @@ For example, I just need to know the user email in order to populate my own data
 
 So the setup is rather simple.
 
+And the user is accessible via the simple decorator @User() for your controller methods.
+
+e.g.:
+```
+import { Controller, Get, UnauthorizedException } from '@nestjs/common';
+import { User, UserModel } from 'quick-social-auth';
+
+@Controller()
+export class AppController {
+
+    @Get()
+    public getHello(@User() authUser: UserModel): UserModel {
+        if (!authUser) {
+            throw new UnauthorizedException();
+        }
+        return authUser;
+    }
+}
+```
+
 **Frontend side**
 
 You probably need to setup the buttons your clients needs to click on in order to be redirected to the provider authentication process.

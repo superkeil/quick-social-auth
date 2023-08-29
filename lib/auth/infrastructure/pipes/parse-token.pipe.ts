@@ -5,7 +5,7 @@ import { AuthService } from '../../services';
 @Injectable()
 export class ParseTokenPipe implements PipeTransform {
 
-    constructor(private readonly authService: AuthService) { }
+    constructor(protected readonly authService: AuthService) { }
 
     public async transform(value: any, _metadata: ArgumentMetadata): Promise<UserModel> {
         // console.log('additional options', metadata.data);

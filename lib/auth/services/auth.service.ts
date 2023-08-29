@@ -22,17 +22,16 @@ export class AuthService {
     }
 
     public getAccessToken(code: string): Promise<string> {
-        try {
-            return Promise.any(
-                this.adapters
-                    .map(async adapter => {
-                        const token = await adapter.getAccessToken(code);
-                        return this.wrapToken(token, adapter.getName());
-                    })
-            );
-        } catch (err) {
+        return Promise.any(
+            this.adapters
+                .map(async adapter => {
+                    const token = await adapter.getAccessToken(code);
+                    return this.wrapToken(token, adapter.getName());
+                })
+        ).catch(err => {
             console.error(err);
-        }
+            return undefined;
+        });
     }
 
     public wrapToken(token: string, adapterName: string): string {
@@ -49,7 +48,7 @@ export class AuthService {
             const tokenDataUtf8 = Buffer.from(tokenDataB64, 'base64').toString('utf-8');
             const tokenData: TokenInterface = JSON.parse(tokenDataUtf8);
             const adapter = this.adapters.find(provider => provider.getName() === tokenData.provider);
-            return adapter.getUser(tokenData.token).catch(() => null);
+            return adapter?.getUser(tokenData.token).catch(() => null);
         } catch { }
     }
 }

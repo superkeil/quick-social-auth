@@ -5,7 +5,7 @@ import { createDynamicAuthController } from './infrastructure';
 
 @Module({})
 export class AuthModule {
-    static forRoot(options?: AuthOptionsInterface): DynamicModule {
+    static forRoot(options: AuthOptionsInterface): DynamicModule {
         return {
             module: AuthModule,
             controllers: [createDynamicAuthController({ authPath: options.authPath })],
